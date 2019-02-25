@@ -1,16 +1,22 @@
 pipeline {
-  agent {
-    docker {
-          image 'suryanarayana6/packer_terraform_git_image:firsttry'
+    agent { 
+		docker 
+		{ 
+			image 'suryanarayana6/packer_terraform_git_image:firsttry' 
+		} 
 	}
-}
-  stages {
-		stage('Build') {
-			steps {
-				sh 'npm install'
-			}
-		}
-    
+    environment {
+        HOME = '.'
+    }
+
+    stages {
+
+        stage('Build') {
+            steps {
+                sh "npm install"
+            }
+        }
+		
 		stage('Create Packer AMI') {
 			steps {
 		  
@@ -20,6 +26,7 @@ pipeline {
 				}
 
 			}
-		}	
-	}	
+		}
+	
+    }
 }
