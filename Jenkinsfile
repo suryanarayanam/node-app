@@ -31,10 +31,9 @@ pipeline {
 		stage('AWS Deployment') {
 			steps {
 				withCredentials([
-					usernamePassword(credentialsId: 'f92a6c0c-1ac7-40de-a7aa-4cc6d9a2a01e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY'),
-            
-					usernamePassword(credentialsId: 'ee88dc30-b859-4932-8307-b464f251d61c', passwordVariable: 'REPO_PASS', usernameVariable: 'REPO_USER'),
-				])
+					[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'a30d892a-be89-45b5-953e-6c42c4a542af', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'],
+				
+					usernamePassword(credentialsId: 'f92a6c0c-1ac7-40de-a7aa-4cc6d9a2a01e', passwordVariable: 'REPO_PASS', usernameVariable: 'REPO_USER')])
 				{
 				
 				sh 'rm -rf node-app-terraform'
@@ -42,7 +41,7 @@ pipeline {
 				sh '''
 				cd node-app-terraform
 				terraform init
-				terraform apply -auto-approve -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
+				terraform apply -auto-approve -var access_key=${AWS_ACCESS_KEY_ID} -var secret_key=${AWS_SECRET_ACCESS_KEY}
                
 				git add terraform.tfstate
 				git -c user.name="suryanarayanam" -c user.email="surya@gmail.com" commit -m "terraform state update from Jenkins"
