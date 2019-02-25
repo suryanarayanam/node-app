@@ -33,7 +33,7 @@ pipeline {
 				withCredentials([
 					usernamePassword(credentialsId: 'f92a6c0c-1ac7-40de-a7aa-4cc6d9a2a01e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY'),
             
-					usernamePassword(credentialsId: 'f92a6c0c-1ac7-40de-a7aa-4cc6d9a2a01e', passwordVariable: 'REPO_PASS', usernameVariable: 'REPO_USER'),
+					usernamePassword(credentialsId: 'ee88dc30-b859-4932-8307-b464f251d61c', passwordVariable: 'REPO_PASS', usernameVariable: 'REPO_USER'),
 				])
 				{
 				
