@@ -2,6 +2,11 @@ pipeline {
   agent {
     docker {
 	  image 'suryanarayana6/packer_terraform_git_image:firsttry'
+
+environment {
+        HOME = '.'
+    }	
+
     }
   }
   stages {
